@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"> 
+	<title>01-局部组件使用</title>
+	<script src="../node_modules/vue/dist/vue.min.js"></script>
+</head>
+<body>
+	<div id="app">
+		{{msg}}
+	</div>
+
+	<script>
+		// 全局组件
+		Vue.component('Vbtn',{
+			template:`
+				<button>test</button>
+			`,
+		})
+
+		// 局部组件
+		var Vheader = {
+			template:`
+				<div>
+					头部组件
+				</div>
+			`
+		};
+		var Vasider = {
+			template:`
+				<div>
+					菜单组件<Vbtn /><Vbtn /><Vbtn />
+				</div>
+			`
+		};
+		var Vcontent = {
+			template:`
+				<div>
+					内容
+				</div>
+			`
+		};
+		var vm = new Vue({
+			el:'#app',
+			data:function(){
+				return{
+					msg:'test',
+				}
+			},
+			methods:{
+
+			},
+			// 挂载子组件
+			components:{
+				Vheader,
+				Vasider,
+				Vcontent,
+			},
+			template:`
+				<div>
+					<Vheader />
+					<div>
+						<Vasider />
+						<Vcontent />
+					</div>
+				</div>
+			`,
+		})
+	</script>
+</body>
+</html>

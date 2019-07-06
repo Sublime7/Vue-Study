@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+	<meta charset="UTF-8">
+	<title>08-计算属性</title>
+	<script src="../node_modules/vue/dist/vue.min.js"></script>
+	<style>
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		ul{
+			list-style:none;
+		}
+		ul li{
+			margin:20px 20px;
+			padding: 10px 10px;
+			border-radius: 3px;
+			cursor:pointer;
+		}
+		audio{
+			margin:25px 0 0 30px;
+		}
+		.active{
+			background-color: #66FFE8;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<audio :src="getCurrentSongSrc" autoplay controls></audio>
+		<ul>
+			<li v-for="(item,index) in musicData" @click="clickHandler(index)" :class='{active:currentIndex == index}'>
+				<h2>{{ item.id }} - 歌名：{{ item.name }}</h2>
+				<p>路径：{{ item.songSrc }}</p>
+			</li>
+		</ul>
+	</div>
+
+	<script>
+		var musicData = [
+			{id:1,name:'Brooklyn Duo - Despacito',author:'Brooklyn Duo',songSrc:'../music/Brooklyn Duo - Despacito.mp3'},
+			{id:2,name:'安图声乐队 - 逆流时光',author:'安图声乐队',songSrc:'../music/安图声乐队 - 逆流时光.mp3'},
+			{id:3,name:'草东没有派对 - 烂泥',author:'草东没有派对',songSrc:'../music/草东没有派对 - 烂泥.mp3'},
+			{id:4,name:'梁博 - 颠倒梦想',author:'梁博',songSrc:'../music/梁博 - 颠倒梦想.mp3'},
+		];
+
+		new Vue({
+			el:'#app',
+			data(){
+				return{
+					musicData:musicData,
+					currentIndex:0,
+				}
+			},
+			computed:{
+				//计算属性默认只有getter
+				getCurrentSongSrc:function(){
+					return this.musicData[this.currentIndex].songSrc;
+				}
+			},
+			methods:{
+				clickHandler(index){
+					this.currentIndex = index;
+				},
+			}
+		})
+	</script>
+</body>
+</html>

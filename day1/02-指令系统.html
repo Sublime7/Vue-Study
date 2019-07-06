@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>02-指令系统</title>
+	<script src="../node_modules/vue/dist/vue.min.js"></script>
+	<style>
+		.box{
+			width: 100px;
+			height: 100px;
+			background-color: red;
+		}
+		.active{
+			background-color: green;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<p>{{ msg }}</p>
+		<p v-html="msg2"></p>
+		<p v-text="msg2"></p>
+		<p v-text="1+1"></p>
+		<p v-text="num1+num2"></p> 
+		<p v-if="isShow">is_show</p>
+		<p v-show="isShow">is_show</p>
+		<p v-if="Math.random() > 0.5">已显示</p>
+		<p v-else>已隐藏</p>
+		<div class="box" :class="{active:isActive}" :lizhi="lizhi" @click="clickbox"></div>
+	</div>
+
+	<script>
+		var app = new Vue({
+			el:'#app',
+			data:function(){
+				return{
+					msg:'德玛西亚',
+					msg2:'<h2>哈哈哈</h2>',
+					isShow:false,
+					num1:10,
+					num2:20,
+					lizhi:'lizhi',
+					isActive:0,
+				}
+			},
+			methods:{
+				clickbox(e){
+					console.log(this);
+					this.isActive=!this.isActive;
+				}
+			},
+		})
+	</script>
+</body>
+</html>

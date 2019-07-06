@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"> 
+	<title>04-局部组件的创建</title>
+	<script src="../node_modules/vue/dist/vue.min.js"></script>
+</head>
+<body>
+	<div id="app">
+		{{msg}}
+	</div>
+
+	<script>
+		// 打油诗：声子 挂子 用子
+
+		// 局部入口组件的创建
+		// 1.声子
+		var App = {
+			data(){
+				return{
+
+				}
+			},
+			methods:{
+				clickB(e){
+					console.log(this);
+				}
+			},
+			template:`
+				<div>
+					<button @click="clickB">test</button>
+				</div>
+			`
+		}
+		var vm = new Vue({
+			el:'#app',
+			data:function(){
+				return{
+					msg:'test',
+				}
+			},
+			methods:{
+
+			},
+			// 2.挂子
+			components:{
+				App
+			},
+			// 3.用子
+			template:`<App/>`,
+		})
+	</script>
+</body>
+</html>

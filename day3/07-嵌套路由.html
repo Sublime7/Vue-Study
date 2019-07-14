@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+	<meta charset="UTF-8">
+	<title>07-嵌套路由</title>
+	<script src="../node_modules/vue/dist/vue.min.js"></script>
+	<script src="../node_modules/vue-router/dist/vue-router.min.js"></script>
+	<style>
+		
+	</style>
+</head>
+<body>
+	<div id="app"></div>
+
+	<script>
+		var App = {
+			template:`
+				<div>
+					首页
+					<br />
+					<router-link :to="{name:'home'}">首页</router-link>
+					<router-view></router-view>
+				</div>
+			`,
+		};
+
+		var Home = {
+			template:`
+				<div>
+					菜单
+					<br />
+					<router-link :to="{name:'nav1'}">菜单1</router-link>
+					<router-link :to="{name:'nav2'}">菜单2</router-link>
+					<router-view></router-view>
+				</div>
+			`,
+		};
+
+		var Nav1 = {
+			template:`
+				<h2>我是菜单1</h2>
+			`,
+		};
+
+		var Nav2 = {
+			template:`
+				<h2>我是菜单2</h2>
+			`,
+		};
+
+		var router = new VueRouter({
+			routes:[
+				{
+					name:"home",
+					path:"/home",
+					component:Home,
+					children:[
+						{
+							name:"nav1",
+							path:"nav1",
+							component:Nav1,
+						},
+						{
+							name:"nav2",
+							path:"nav2",
+							component:Nav2,
+						},
+					],
+				}
+			],
+		});
+
+		var vm = new Vue({
+			el:"#app",
+			data(){
+				return{
+
+				}
+			},
+			router,
+			components:{
+				App,
+			},
+			template:`
+				<App />
+			`,
+		});
+	</script>
+</body>
+</html>

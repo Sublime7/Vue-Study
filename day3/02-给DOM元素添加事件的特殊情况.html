@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+	<meta charset="UTF-8">
+	<title>02-给DOM元素添加事件的特殊情况</title>
+	<script src="../node_modules/vue/dist/vue.min.js"></script>
+	<style>
+		
+	</style>
+</head>
+<body>
+	<div id="app"></div>
+
+	<script>
+		var App = {
+			data(){
+				return{
+					isShow:false,
+				}
+			},
+			template:`
+				<div class='app'>
+					<input type="text" />
+					<input type="text" v-show="isShow" ref="input" />
+				</div>
+			`,
+			mounted(){
+				this.isShow = true;
+				console.log(this.$refs.input);
+
+				//$nextTick() 是在 DOM 更新循环结束之后执行回调函数，在修改数据之后使用此方法在回调中获取到更新之后的 DOM
+				this.$nextTick(function(){
+					this.$refs.input.focus();
+				})
+			}
+		};
+
+		var vm = new Vue({
+			el:'#app',
+			data(){
+				return{
+
+				}
+			},
+			components:{
+				App,
+			},
+			template:`
+				<App />
+			`,
+		});
+	</script>
+</body>
+</html>

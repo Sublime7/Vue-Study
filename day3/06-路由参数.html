@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+	<meta charset="UTF-8">
+	<title>06-路由参数</title>
+	<script src="../node_modules/vue/dist/vue.min.js"></script>
+	<script src="../node_modules/vue-router/dist/vue-router.min.js"></script>
+	<style>
+		
+	</style>
+</head>
+<body>
+	<div id="app"></div>
+
+	<script>
+
+		//地址栏上 路由范式
+		//(1) xxxx.html#/user/1 params 动态路由参数
+		//(2) oooo.html#/user?userId=1 query
+		var UserParams = {
+			data(){
+				return{
+					id:0,
+				}
+			},
+			template:`
+				<div>我是用户{{ id }}</div>
+			`,
+			created(){
+				//抛出来两个对象 挂载Vue实例对象
+				console.log(this.$router);
+				console.log(this.$route);
+				this.id = this.$route.params.id;
+			}
+		}
+
+		var UserQuery = {
+			template:`
+				<div>我是用户2</div>
+			`,
+		}
+		
+		var router = new VueRouter({
+			routes:[
+				{
+					//动态路由参数 以冒号开头
+					name:"userP",
+					path:"/user/:id",
+					component:UserParams
+				},
+				{
+					name:"userQ",
+					path:"/user",
+					component:UserQuery
+				},
+			]
+		});
+
+		var App = {
+			template:`
+				<div>
+					<router-link :to="{name:'userP',params:{id:1}}">用户1</router-link>
+					<router-link :to="{name:'userQ',query:{userId:2}}">用户2</router-link>
+					<router-view><router-view>
+				</div>
+			`,
+		};
+
+		var vm = new Vue({
+			el:'#app',
+			data(){
+				return{
+
+				}
+			},
+			router,
+			components:{
+				App,
+			},
+			template:`
+				<App />
+			`,
+		});
+	</script>
+</body>
+</html>

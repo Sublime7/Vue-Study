@@ -16,6 +16,7 @@
 	$dir_handle = opendir('./');
 	$num = 1;
 	while ($dir_name = readdir($dir_handle)) {
+		$dir_name = mb_convert_encoding ($dir_name,'UTF-8','GBK');
 		if (!preg_match("/^\..*/", $dir_name) && is_dir($dir_name)) {
 			$dir_name2 = opendir($dir_name);
 
@@ -33,6 +34,7 @@
 	<div class='panel-body'>";
 
 			while ($file_name = readdir($dir_name2)) {
+				$file_name = mb_convert_encoding ($file_name,'UTF-8','GBK');
 				if (!preg_match("/^\..*/", $file_name)) {
 					echo "<a href='{$dir_name}/{$file_name}'>{$file_name}</a><br>";
 		
